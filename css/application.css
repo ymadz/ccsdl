@@ -1,0 +1,39 @@
+/* Application Form Container */
+.application-form {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+/* Subject Entry Styles */
+.subject-entry {
+    border: 1px solid #ddd;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 4px;
+}
+
+/* Validation Feedback */
+.invalid-feedback {
+    display: none;
+    color: red;
+    font-size: 0.875em;
+}
+
+input:invalid ~ .invalid-feedback {
+    display: block;
+}
+
+/* Submit Button */
+.btn-submit {
+    background-color: #28a745;
+    color: white;
+}
+
+.btn-submit:hover {
+    background-color: #218838;
+    color: white;
+} 

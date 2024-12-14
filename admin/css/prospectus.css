@@ -1,0 +1,186 @@
+/* Prospectus Table Styles */
+.table thead th {
+    vertical-align: middle;
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+}
+
+.table th[rowspan] {
+    vertical-align: middle;
+}
+
+.table th[colspan] {
+    text-align: center;
+}
+
+
+.filter-label {
+    color: #003319;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+#searchInput, .form-select {
+    border: 2px solid #004225;
+    padding: 10px 15px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    color: #003319;
+}
+
+#searchInput:focus, .form-select:focus {
+    border-color: #003319;
+    box-shadow: 0 0 0 0.2rem rgba(0, 66, 37, 0.15);
+    outline: none;
+}
+
+.form-select:hover {
+    border-color: #003319;
+}
+
+.nav-tabs .nav-link {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.nav-tabs .nav-link i {
+    font-size: 1.1em;
+}
+
+table th i {
+    margin-right: 5px;
+    color: #004225;
+}
+
+/* Edit Modal Styles */
+#editSubjectModal .modal-content {
+    border: none;
+    border-radius: 8px;
+}
+
+#editSubjectModal .modal-header {
+    background-color: #004225;
+    color: white;
+    border-radius: 8px 8px 0 0;
+}
+
+#editSubjectModal .btn-close {
+    filter: brightness(0) invert(1);
+}
+
+#editSubjectModal .form-label {
+    color: #003319;
+    font-weight: 500;
+}
+
+#editSubjectModal .form-control,
+#editSubjectModal .form-select {
+    border: 2px solid #004225;
+    padding: 8px 12px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+#editSubjectModal .form-control:focus,
+#editSubjectModal .form-select:focus {
+    border-color: #003319;
+    box-shadow: 0 0 0 0.2rem rgba(0, 66, 37, 0.15);
+}
+
+#editSubjectModal .numeric-input::-webkit-inner-spin-button,
+#editSubjectModal .numeric-input::-webkit-outer-spin-button {
+    opacity: 1;
+}
+
+#editSubjectModal #editTotalUnits {
+    background-color: #f8f9fa;
+    cursor: not-allowed;
+}
+
+#editSubjectModal .modal-footer {
+    border-top: 1px solid #dee2e6;
+    padding: 1rem;
+}
+
+#editSubjectModal .btn-primary {
+    background-color: #004225;
+    border-color: #004225;
+}
+
+#editSubjectModal .btn-primary:hover {
+    background-color: #003319;
+    border-color: #003319;
+}
+
+/* Radio Button Groups */
+.year-level-group,
+.semester-group {
+    display: flex;
+    gap: 5px;
+}
+
+.btn-check + .btn-outline-primary {
+    color: #004225;
+    border-color: #004225;
+}
+
+.btn-check:checked + .btn-outline-primary {
+    background-color: #004225;
+    border-color: #004225;
+    color: white;
+}
+
+/* Autocomplete Styling */
+.ui-autocomplete {
+    max-height: 200px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.ui-autocomplete .ui-menu-item {
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.ui-autocomplete .ui-menu-item:hover {
+    background-color: #f8f9fa;
+}
+
+.ui-helper-hidden-accessible {
+    display: none;
+}
+
+/* Number Input Styling */
+.numeric-input {
+    -moz-appearance: textfield;
+}
+
+.numeric-input::-webkit-outer-spin-button,
+.numeric-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Add a custom spinner button */
+.numeric-input-wrapper {
+    position: relative;
+}
+
+.numeric-input-wrapper::after {
+    content: "";
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 12px;
+    height: 12px;
+    background-image: url('data:image/svg+xml,...');
+    pointer-events: none;
+} 
