@@ -78,25 +78,27 @@ class Account
      * @param string $password The raw password entered by the user
      * @return bool True if authentication succeeds, False otherwise
      */
-    public function login($username, $password)
-    {
-        try {
-            $account = $this->fetch($username);
-            
-            if (!$account) {
-                throw new Exception("Account not found");
-            }
-            
-            if (!password_verify($password, $account['password'])) {
-                throw new Exception("Invalid password");
-            }
-            
-            return $account;
-        } catch (Exception $e) {
-            error_log("Login error: " . $e->getMessage());
-            throw $e;
+    public function login($username_or_email, $password)
+{
+    try {
+        $account = $this->fetch($username_or_email);
+        
+        if (!$account) {
+            return false; // Account not found
         }
+        
+        // Verify hashed password
+        if (!password_verify($password, $account['password'])) {
+            return false; // Invalid password
+        }
+        
+        return $account; // Successful login
+    } catch (Exception $e) {
+        error_log("Login error: " . $e->getMessage());
+        throw $e;
     }
+}
+
 
     /**
      * Fetch user data by username or email
@@ -104,30 +106,26 @@ class Account
      * @param string $email_or_username The email or username
      * @return array|false User data on success, False otherwise
      */
-    public function fetch($username)
-    {
-        try {
-            $sql = "SELECT a.*, u.first_name, u.last_name, r.name as role_name 
-                    FROM account a 
-                    JOIN user u ON a.user_id = u.id 
-                    JOIN role r ON a.role_id = r.id 
-                    WHERE a.username = ?";
-                    
-            $stmt = $this->db->connect()->prepare($sql);
-            $stmt->execute([$username]);
-            
-            $result = $stmt->fetch(PDO::FETCH_ASSOC);
-            
-            if (!$result) {
-                return null;
-            }
-            
-            return $result;
-        } catch (PDOException $e) {
-            error_log("Database error in fetch: " . $e->getMessage());
-            throw new Exception("Failed to fetch account details");
-        }
+    public function fetch($username_or_email)
+{
+    try {
+        $sql = "SELECT a.*, u.firstname, u.lastname, r.name AS role_name 
+                FROM account a
+                JOIN user u ON a.user_id = u.id
+                JOIN role r ON a.role_id = r.id
+                WHERE a.username = :input OR u.email = :input";
+                
+        $stmt = $this->db->connect()->prepare($sql);
+        $stmt->bindParam(':input', $username_or_email, PDO::PARAM_STR);
+        $stmt->execute();
+        
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+        error_log("Database error in fetch: " . $e->getMessage());
+        throw new Exception("Failed to fetch account details");
     }
+}
+
 
 
     /**

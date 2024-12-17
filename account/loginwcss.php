@@ -23,33 +23,32 @@ try {
 
             // Attempt to log in
             if ($accountObj->login($email_or_username, $password)) {
-                // Fetch account details
                 $data = $accountObj->fetch($email_or_username);
-
-                // Check if data is fetched successfully
+            
                 if ($data) {
                     $_SESSION['account'] = $data;
+            
                     switch ($data['role_id']) {
-                        case 1:
+                        case 3: // Admin
                             header('Location: ../admin/dashboard.php');
                             break;
-                        case 2:
+                        case 2: // Staff
                             header('Location: ../staff/staff.php');
                             break;
-                        case 3:
+                        case 1: // User
                             header('Location: ../user/user.home.php');
+                            break;
+                        default:
+                            $loginErr = 'Role not recognized.';
                             break;
                     }
                     exit();
                 } else {
-                    // Log error if fetch fails
-                    error_log("Failed to fetch user data for: $email_or_username");
-                    $loginErr = 'An unexpected error occurred. Please try again.';
+                    $loginErr = 'Unable to fetch user details.';
                 }
             } else {
-                // Invalid credentials
                 $loginErr = 'Invalid credentials. Please try again.';
-            }
+            }            
         } else {
             $loginErr = 'Please fill in all fields';
         }

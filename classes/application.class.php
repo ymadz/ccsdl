@@ -86,4 +86,44 @@ class Application {
             throw new Exception("Failed to get approved applications");
         }
     }
+
+    public function getApplicationStats() {
+        try {
+            $sql = "SELECT 
+                        SUM(CASE WHEN status = 'Pending' THEN 1 ELSE 0 END) AS pending,
+                        SUM(CASE WHEN status = 'Approved' THEN 1 ELSE 0 END) AS approved,
+                        SUM(CASE WHEN status = 'Rejected' THEN 1 ELSE 0 END) AS rejected
+                    FROM student_applications";
+            
+            $stmt = $this->db->connect()->prepare($sql);
+            $stmt->execute();
+            
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            error_log("Failed to fetch application stats: " . $e->getMessage());
+            return ['pending' => 0, 'approved' => 0, 'rejected' => 0];
+        }
+    }
+
+    public function getRecentApplications($limit = 5) {
+        try {
+            $sql = "SELECT sa.id, CONCAT(u.firstname, ' ', u.lastname) AS student_name, 
+                           sa.status, sa.created_at
+                    FROM student_applications sa
+                    JOIN user u ON sa.user_id = u.id
+                    ORDER BY sa.created_at DESC
+                    LIMIT ?";
+            
+            $stmt = $this->db->connect()->prepare($sql);
+            $stmt->bindParam(1, $limit, PDO::PARAM_INT);
+            $stmt->execute();
+            
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            error_log("Failed to fetch recent applications: " . $e->getMessage());
+            return [];
+        }
+    }
+    
+    
 }

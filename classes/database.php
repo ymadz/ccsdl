@@ -3,7 +3,7 @@ class Database {
     private $host = 'localhost';
     private $username = 'root';
     private $password = '';
-    private $database = 'ccs_ranking_db';
+    private $database = 'ccs_system';
     private $connection;
 
     public function __construct() {
